@@ -17,5 +17,5 @@ screen = pygame.display.set_mode((W, H))
 run = True
 while run:
     for e in pygame.event.get():
-        if e.type == pygame.QUIT:
+        if e.type == pygame.QUIT or e.type == pygame.KEYDOWN and e.key == pygame.K_ESCAPE:
             run = False
