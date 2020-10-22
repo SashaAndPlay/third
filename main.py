@@ -24,7 +24,7 @@ bg_rect = bg.get_rect(topleft=(0, 0))
 cat = pygame.image.load('Image/cat.png')
 cat_rect = cat.get_rect(topleft=(70, 220))
 dog = pygame.image.load('Image/dog.png')
-dog_rect = dog.get_rect(topleft=(410, 220))
+dog_rect = dog.get_rect(topleft=(310, 220))
 owl = pygame.image.load('Image/owl.png')
 owl_rect = owl.get_rect(topleft=(210, 120))
 dialog = pygame.image.load('Image/dialog.png')
@@ -38,11 +38,11 @@ font2 = pygame.font.SysFont('Arial', 14, False, True)
 font_box = pygame.Surface((W - 30, font.get_height()))
 font_box_rect = font_box.get_rect(center=(W // 2, H - 30))
 
-def dialogs(text, pos, owl_text):
+def dialogs(text, pos, owl_pos, owl_text):
     screen.blit(dialog, pos)
-    screen.blit(font2.render(text, True, BLACK), (pos[0] + 5, pos[1] + 5,))
-    screen.blit(dialog, dialog_owl_pos)
-    screen.blit(font2.render(text, True, BLACK), (dialog_owl_pos[0] + 5, dialog_owl_pos[1] + 5,))
+    screen.blit(font2.render(text, True, BLACK), (pos[0] + 5, pos[1] + 5))
+    screen.blit(dialog, owl_pos)
+    screen.blit(font2.render(owl_text, True, BLACK), (dialog_owl_pos[0] + 5, dialog_owl_pos[1] + 5))
     pygame.display.update()
     pygame.time.wait(2000)
 
@@ -52,7 +52,7 @@ while run:
     for e in pygame.event.get():
         if e.type == pygame.QUIT:
             run = False
-        elif e.type == pygame.KEYDOWN: 
+        elif e.type == pygame.KEYDOWN:
             if e.key == pygame.K_ESCAPE:
                 run = False
 
@@ -61,8 +61,15 @@ while run:
         screen.blit(cat, cat_rect)
         screen.blit(dog, dog_rect)
         screen.blit(owl, owl_rect)
-        screen.blit(dialog, dialog_rect)
+        #screen.blit(dialog, dialog_rect)
         screen.blit(font_box, font_box_rect)
         font_box.fill(SILVER)
     pygame.display.update()
 
+    if start == 1:
+        dialogs('', OUTSIZE_BG, dialog_owl_pos, 'Я загадала число')
+        dialogs('', OUTSIZE_BG, dialog_owl_pos, 'от 0 до 100')
+        dialogs('', OUTSIZE_BG, dialog_owl_pos, 'Отгадайте его!')
+        dialogs('Кот, твой ход', dialog_dog_pos, dialog_owl_pos, '')
+        dialogs('Я кот', dialog_cat_pos, dialog_owl_pos, '')
+        start = 0
